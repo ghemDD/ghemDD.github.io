@@ -61,7 +61,7 @@ h2 .hint { font-size:.9rem; font-weight:400; color:var(--muted); letter-spacing:
 /* ------------------------------------------------------------------ news */
 .news { margin:0; padding-left:1.25rem; }
 .news li { margin-bottom:.3rem; color:var(--fg); }
-.news .date { color:var(--muted); display:inline-block; min-width:4.3rem;
+.news .date { color:var(--muted); font-weight:600; display:inline-block; min-width:4.5rem;
                font-variant-numeric:tabular-nums; }
 
 /* ---------------------------------------------------------------- papers */
