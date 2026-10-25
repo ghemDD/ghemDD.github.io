@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Planes, Not A380 &mdash; Na&euml;l Ouerghemi</title>
+<meta name="description" content="Planes, Not A380 &mdash; research by Na&euml;l Ouerghemi.">
+<link rel="icon" type="image/jpeg" href="../icon.jpg">
+<link rel="apple-touch-icon" href="../icon.jpg">
+<link rel="stylesheet" href="../style.css">
+<script src="../theme.js"></script>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+<main>
+  <button id="theme-toggle" class="theme-toggle" type="button">☾</button>
+  <a class="back" href="../">&larr; Na&euml;l Ouerghemi</a>
+  <section class="panel">
+    <h1>Planes, Not A380: How Prompting, Context, and Granularity Shape VLM Performance in Aerial Imagery</h1>
+    <div class="pmeta"><strong>JSTARS</strong> &middot; IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing</div>
+    <div class="pmeta"><span class="authors"><strong>N. Ouerghemi</strong>, C. Tomoiaga, M. Detyniecki</span></div>
+  
+    <img class="hero" src="../figs/planes.png" alt="Referring object classification protocol">
+    <article>
+  <section>
+  <h2>Summary</h2>
+  <p>A systematic study of how 9 VLMs&mdash;frontier MLLMs and contrastive vision encoders&mdash;handle referring object
+  classification across 3 aerial datasets (iSAID, DIOR, FAIR1M) under open- and closed-world answer spaces. Built during
+  a research internship at AXA.</p>
+  </section>
+  <section>
+  <h2>Key findings</h2>
+  <ul class="findings">
+  <li>Models handle coarse categories well but <strong>collapse on fine-grained distinctions</strong> (e.g., specific
+  aircraft types).</li>
+  <li><strong>Coarse visual prompts</strong> that preserve scene context (oriented boxes, circles) outperform fine-grained
+  prompts (contours, reverse masks), while neighboring-object context is a double-edged sword: boosting accuracy when
+  relevant, hurting in cluttered scenes.</li>
+  <li>VLMs behave as <strong>multimodal in-context learners</strong>: same-category context examples drive fine-grained
+  accuracy, with performance collapsing when they are removed (0.372 &rarr; 0.040 on FAIR1M).</li>
+  </ul>
+  </section>
+    </article>
+  </section>
+
+  <footer><a href="../">Na&euml;l Ouerghemi</a> &middot; Lausanne, Switzerland</footer>
+</main>
+<script src="../bg.js"></script>
+</body>
+</html>

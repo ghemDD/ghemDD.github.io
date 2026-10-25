@@ -1,217 +1,203 @@
 <!DOCTYPE html>
-<html lang="en-US">
-  <head>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/7.5.0/vis.min.js"></script>
-    <meta charset="UTF-8">
-    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#157878">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Na&euml;l Ouerghemi</title>
+<meta name="description" content="Na&euml;l Ouerghemi &mdash; research on unified multimodal models and benchmarks for vision, language, motion and action.">
+<meta name="author" content="Na&euml;l Ouerghemi">
+<link rel="icon" type="image/jpeg" href="icon.jpg">
+<link rel="apple-touch-icon" href="icon.jpg">
+<link rel="stylesheet" href="style.css">
+<script src="theme.js"></script>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+<main>
+  <button id="theme-toggle" class="theme-toggle" type="button">☾</button>
 
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <main id="content" class="main-content" role="main">
-        <header class="page-header" role="banner">
-            <h1 class="project-name">The Social Network : a Hollywood Story</h1>
-            <p><img src="images/hollywood.jpg" alt="image", width="50%", height="400px" /></p>
-        </header>
+  <section class="panel hero">
+    <header class="head">
+      <!-- To add a photo: drop a square image at website/me.jpg, uncomment the line
+           below and set .head back to a two-column grid in style.css.
+      <img class="portrait" src="me.jpg" alt="Na&euml;l Ouerghemi"> -->
+      <div>
+        <h1>Na&euml;l Ouerghemi</h1>
+        <p class="contact">Email: <a href="mailto:nael.ouerghemi14@gmail.com">nael.ouerghemi14@gmail.com</a></p>
+        <p class="linkline">
+            <a href="https://scholar.google.com/citations?user=nael-ouerghemi" target="_blank" rel="noopener noreferrer">Google Scholar</a><span class="sep">&middot;</span>
+          <a href="https://github.com/ghemDD" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </p>
+        <div class="bio">
+          <p>I hold an M.Sc. in Data Science from
+          <a href="https://www.epfl.ch" target="_blank" rel="noopener noreferrer">EPFL</a>. I am continuing my
+          Master&rsquo;s thesis work as a Master&rsquo;s valorisation at the
+          <a href="https://www.mathislab.org" target="_blank" rel="noopener noreferrer">Mathis Group for Computational
+          Neuroscience &amp; AI</a> with
+          <a href="https://www.mathislab.org/team" target="_blank" rel="noopener noreferrer">Prof. Alexander Mathis</a>,
+          and I am a research assistant at
+          <a href="https://brbiclab.epfl.ch" target="_blank" rel="noopener noreferrer">MLBio</a> with
+          <a href="https://people.epfl.ch/maria.brbic" target="_blank" rel="noopener noreferrer">Prof. Maria Brbi&#263;</a>.</p>
 
-   
+          <p>My research is broadly focused on understanding vision and how visual understanding transfers across
+          domains. I work on unified multimodal models that connect perception to language, reasoning, and action
+          across egocentric video, body motion, and text, and on benchmarks that measure where such models break
+          down. My goal is to build multimodal systems that understand the visual world.</p>
 
-<div class="article">
-  
-  <p>Is Hollywood’s social network composition unique or do other movie industries follow suit ? Hollywood is the most famous movie production industry in the world. It has a reputation of being a high-class, exclusive and hard to get in environment. Having a good network is undoubtedly very important to make it there. Clubs, communities and social dynamics between actors, directors, and producers take shape within this environment</p>
-  
-  <p>What are the specifities of the composition and shape of the Hollywood social network ? Are they unique and part of its “identity” or is it a social network that all movie industries follow / or are bound to (Bollywood, Chinawood being other major movie industries). Through a “co-stardom graph” showing actors who played in the same movies, we will look at its evolution over time and compute different graph metrics (centrality,…), run cluster analysis and compare these metrics across different industries.</p>
-  
-  <p></p>
-  
-  <h2 id="OfCharactersAndMen">Success, Money, Fame, ADA</h2>
-  
-  <!-- <p> We begin our analysis with a part of the actors that exhibits pre dominant character tropes features : as we will see 
-    most of them are Hollywood actors featuring in successful movies (in average). Can you guess the top movie genres containing 
-    the most character tropes ?
+          <p>Before that I was a research scientist intern at AXA, working on vision&ndash;language models for Earth
+          observation, and a research engineer intern at Logitech, working on GUI grounding.</p>
+        </div>
+      </div>
+    </header>
+  </section>
 
-    <p><img src="images/top_genres.png" alt="image", width="100%", height="400px" /></p>
+  <section class="panel">
+    <h2>Recent News</h2>
+    <ul class="news">
+      <li><span class="date">[26/09]</span> Started a <strong>Master&rsquo;s valorisation</strong> at the Mathis Group
+          for Computational Neuroscience &amp; AI, continuing my thesis work on egocentric behavior and body-motion
+          modeling.</li>
+      <li><span class="date">[26/09]</span> <strong>MARBLE</strong> accepted at NeurIPS 2026, Evaluations &amp; Datasets
+          track.</li>
+      <li><span class="date">[26/09]</span> <strong>Rethinking Projector Training in Multimodal LLMs</strong> accepted at
+          NeurIPS 2026.</li>
+      <li><span class="date">[26/07]</span> Graduated with an <strong>M.Sc. in Data Science</strong> from EPFL.</li>
+      <li><span class="date">[26/07]</span> <strong>SkySpector</strong> selected as an oral at the TerraBytes II workshop
+          at ECCV 2026, and as an oral at the 2nd ESA&ndash;NASA Workshop on AI Foundation Models for Earth
+          Observation.</li>
+      <li><span class="date">[26/03]</span> Joined the Mathis Group for Computational Neuroscience &amp; AI to write my
+          Master&rsquo;s thesis.</li>
+      <li><span class="date">[25/12]</span> <strong>Planes, Not A380</strong> published in IEEE JSTARS.</li>
+      <li><span class="date">[25/09]</span> Joined MLBio at EPFL as a research assistant, working on multimodal alignment
+          and spatial reasoning.</li>
+    </ul>
+  </section>
 
-    As you could have guessed, the Action genre contains the most clichés characters such as the 'Father to his Men' or the 'Master Swordsman'. We might wonder next what are the most
-    frequent character types ?
+  <section class="panel">
+    <h2>Papers <span class="hint">(*equal contribution)</span></h2>
 
-    <p><img src="images/character_type_hist.png" alt="image", width="90%", height="400px", left-margin="10px" /></p> -->
-
-    <!-- We next want to know who are the most successful actors : for this purpose, we compute the global movie revenue 
-    of the films in which an actor/actress starred in (i.e the sum of the individual revenue). We next plot the ten most successful 
-    actors that have a character trope :
-
-    Next, we want to plot the Actor on a lower dimensional plan, using Principal Components Analysis :
-    <p><img src="images/pca_actors.png" alt="image", width="80%", height="80%", left-margin="10px" /></p>
-
-    We can see an interesting plot when only selecting the top 10 actors : 
-    <p><img src="images/pca_top_10.png" alt="image", width="80%", height="80%", left-margin="10px" /></p> -->
-
-    Have you even dreamed of getting into a private Hollywood party ? Of getting into Leonardo Di Caprio's friend circle ?
-
-    Well, don't get your hopes too high, we coulnd't manage to do this ourselves.
-
-    However, how about a first a first glimpse into the VIP circles.
-
-    Please select an actress or an actor, and visualize their closest connections !
-
-    <br></br>
- 
-    <div id="pyvis-visualization">
-        <iframe src="actor_graph.html" width="100%", height="100%", scrolling="no"></iframe>
+    <div class="pub">
+      <a href="egopraxis/"><img class="thumb" src="figs/egopraxis.png" alt="EgoPraxis architecture overview"></a>
+      <div>
+        <p class="ptitle"><a href="egopraxis/">EgoPraxis: Multimodal Modeling of Egocentric Human Motion for
+        Understanding, Generation, and Reasoning</a></p>
+        <p class="authors"><span class="me">Na&euml;l Ouerghemi</span>, Matea Tashkovska, Alexander Mathis</p>
+        <p class="venue"><em>In preparation</em></p>
+        <p class="plinks"><a href="egopraxis/">Summary</a></p>
+      </div>
     </div>
-  <!-- </p> -->
 
+    <div class="pub">
+      <a href="soma/"><img class="thumb" src="figs/soma.png" alt="SOMA benchmark overview"></a>
+      <div>
+        <p class="ptitle"><a href="soma/">SOMA: A Benchmark for Fine-Grained Egocentric Behavior and Body-Motion
+        Understanding</a></p>
+        <p class="authors">Matea Tashkovska, <span class="me">Na&euml;l Ouerghemi</span>, Haozhe Qi, Alexander Mathis</p>
+        <p class="venue"><em>Under review</em></p>
+        <p class="plinks"><a href="soma/">Summary</a></p>
+      </div>
+    </div>
 
+    <div class="pub">
+      <a href="marble/"><img class="thumb" src="figs/marble.png" alt="MARBLE environments: CUBE, MAZE, BLOX"></a>
+      <div>
+        <p class="ptitle"><a href="marble/">MARBLE: An Agentic Benchmark for Spatial Reasoning and Visual
+        Abstraction</a></p>
+        <p class="authors">Yulun Jiang, <span class="me">Na&euml;l Ouerghemi</span>, Yifei Chai, Maria Brbi&#263;, Michael Moor</p>
+        <p class="venue">Conference on Neural Information Processing Systems (<strong>NeurIPS</strong>),
+        Evaluations &amp; Datasets Track, 2026</p>
+        <p class="plinks">
+          <a href="https://arxiv.org/pdf/2506.22992" target="_blank" rel="noopener noreferrer">Paper</a>
+          <a href="https://marble-benchmark.github.io/" target="_blank" rel="noopener noreferrer">Website</a>
+          <a href="marble/">Summary</a>
+        </p>
+      </div>
+    </div>
 
-  <h3 id="eyyy">Hollywood versus Bollywood, which one is the most accessible ?</h3>
+    <div class="pub">
+      <a href="portal/"><img class="thumb" src="figs/portal.png" alt="Projector alignment solution space"></a>
+      <div>
+        <p class="ptitle"><a href="portal/">Rethinking Projector Training in Multimodal LLMs</a></p>
+        <p class="authors">Fabian Gr&ouml;ger*, <span class="me">Na&euml;l Ouerghemi</span>*, Shuo Wen*, Maria Brbi&#263;</p>
+        <p class="venue">Conference on Neural Information Processing Systems (<strong>NeurIPS</strong>), 2026</p>
+        <p class="plinks">
+          <a href="https://arxiv.org/abs/2610.18598" target="_blank" rel="noopener noreferrer">Paper</a>
+          <a href="https://brbiclab.epfl.ch/projects/portal/" target="_blank" rel="noopener noreferrer">Website</a>
+          <a href="portal/">Summary</a>
+        </p>
+      </div>
+    </div>
 
-  You may not have been able to get into Hollywood, but why not try your luck in Bollywood ? Is it really more accessible ?
+    <div class="pub">
+      <a href="skyspector/"><img class="thumb" src="figs/skyspector.png" alt="SkySpector retrieval example"></a>
+      <div>
+        <p class="ptitle"><a href="skyspector/">SkySpector: Query-Centric Multi-Positive Retrieval for Earth
+        Observation</a></p>
+        <p class="authors"><span class="me">Na&euml;l Ouerghemi</span>, Ciprian Tomoiaga, Marcin Detyniecki</p>
+        <p class="venue">TerraBytes II Workshop at the European Conference on Computer Vision
+        (<strong>ECCV</strong>), 2026 &mdash; <strong>Oral</strong><br>
+        2nd ESA&ndash;NASA Workshop on AI Foundation Models for Earth Observation &mdash;
+        <strong>Oral</strong><br>Extended manuscript in preparation</p>
+        <p class="plinks">
+          <a href="https://openreview.net/pdf?id=xpxFsK3pcN" target="_blank" rel="noopener noreferrer">Paper</a>
+          <a href="skyspector/">Summary</a>
+        </p>
+      </div>
+    </div>
 
-  <p> Upon examining the co-stardom graphs of Hollywood and Bollywood, it is evident that there are significant differences in the structures of the networks.
-    The Hollywood graph displays multiple distinct communities, while the Bollywood graph is centered around a single central community with several smaller communities in close proximity.</p>
+    <div class="pub">
+      <a href="planes/"><img class="thumb" src="figs/planes.png" alt="Referring object classification protocol"></a>
+      <div>
+        <p class="ptitle"><a href="planes/">Planes, Not A380: How Prompting, Context, and Granularity Shape VLM
+        Performance in Aerial Imagery</a></p>
+        <p class="authors"><span class="me">Na&euml;l Ouerghemi</span>, Ciprian Tomoiaga, Marcin Detyniecki</p>
+        <p class="venue">IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing
+        (<strong>JSTARS</strong>)</p>
+        <p class="plinks"><a href="planes/">Summary</a></p>
+      </div>
+    </div>
+  </section>
 
-    <p>
-      It is also worth noting that there are many nodes in the Bollywood network that are excluded from any particular community. 
-      This may suggest that there are actors in Bollywood who are less connected to other actors in the industry, or who are not as closely tied to any particular group or community.
-    </p>
+  <section class="panel">
+    <h2>Projects</h2>
 
-    <center><p><img src="images/hollywood_network.png" alt="image", width="80%"/><figcaption>Hollywood Costardom Graph</figcaption></p></center>
+    <div class="pub">
+      <a href="spine/"><img class="thumb" src="figs/spine.png" alt="Layer-wise ablation for language modeling tasks"></a>
+      <div>
+        <p class="ptitle"><a href="spine/">SPINE: Restoring Spatial Structure in Multimodal LLMs</a></p>
+        <p class="venue">Research project</p>
+        <p class="note">Where MLLMs lose spatial structure, and an architecture that restores it: training-free
+        self-calibration of multi-layer vision features, injected as residuals into early LLM layers. +3.9 average
+        points across seven spatial-reasoning benchmarks.</p>
+        <p class="plinks"><a href="spine/">Summary</a></p>
+      </div>
+    </div>
+  </section>
 
-    <center><p><img src="images/bollywood_network.png" alt="image", width="80%"/><figcaption>Bollywood Costardom Graph</figcaption></p></center>
+  <section class="panel">
+    <h2>Experience</h2>
+    <ul class="exp">
+      <li>Master&rsquo;s Valorisation, Mathis Group for Computational Neuroscience &amp; AI, EPFL
+          <span class="when">&middot; Sep 2026 &ndash; present</span></li>
+      <li>Master&rsquo;s Thesis, Mathis Group for Computational Neuroscience &amp; AI, EPFL
+          <span class="when">&middot; Mar &ndash; Jul 2026</span></li>
+      <li>Research Assistant, MLBio, EPFL <span class="when">&middot; Sep 2025 &ndash; present</span></li>
+      <li>Research Engineer Intern, Logitech <span class="when">&middot; Feb &ndash; Aug 2025</span></li>
+      <li>Research Scientist Intern, AXA <span class="when">&middot; Aug 2024 &ndash; Feb 2025</span></li>
+    </ul>
+  </section>
 
-    The communities displayed explicitely on the graphs confirm our assumptions.
+  <section class="panel">
+    <h2>Service</h2>
+    <ul class="exp">
+      <li>Reviewer, IEEE Geoscience and Remote Sensing Letters (GRSL)</li>
+      <li>Reviewer, IEEE Transactions on Aerospace and Electronic Systems (TAES)</li>
+    </ul>
+  </section>
 
-    <center><p><img src="images/hollywood_cd.png" alt="image", width="80%"/><figcaption>Hollywood Community Detection</figcaption></p></center>
+  <footer>Na&euml;l Ouerghemi &middot; Lausanne, Switzerland</footer>
 
-    <center><p><img src="images/bollywood_cd.png" alt="image", width="80%"/><figcaption>Bollywood Community Detection</figcaption></p></center>
-
-    <center>Each color corresponds to a community in the Hollyood's and Bollywood's Social Networks.</center>
-
-    <p>One possible explanation for this difference is that the Hollywood film industry may be more collaborative, with actors frequently working together on multiple movies.
-      The presence of multiple distinct communities suggests that there are different groups separated that work quasi-exclusively between themselves. Cinematic Universes such as the MCU is an example you may be familiar with.</p>
-
-    <p>
-      On the other hand, the centralized, homogeneous structure of the Bollywood network may indicate two possibilities :
-      - Either a hierarchical system in which a select group of actors hold more power and influence within the industry. 
-      - Or simply a more accessible organization that gives the chance to newcomers like me and you !
-      The smaller communities surrounding the central community may indeed represent actors that work with new comers that only featured in a few movies.
-    </p>
-
-    <h3 id="Ego Networks and graph metrics, or how do numbers reflect the differences in social structures of cinematographic industries ?"> Ego Networks and graph metrics, or how do numbers reflect the differences in social structures of cinematographic industries ?</h3>
-
-  You are so passionate about cinema that any cinematographic industry in the world would work. In order to do this, let's analyze the ego networks of the most prolific actors in multiple industries.
-  Ego networks are network graphs were each individual node is an "ego". They allow us to describe and index the variation among individuals in the way they are embedded in "local" social structures.
-  This indicates for example to what extend is there inner circle accessible. You'll for sure recognize a few names in there, make sure to take notes, so you know who to approach when you get an opportunity.
-
-  
-  <!-- <p>
-    
-    Once we had the co-stardom graphs for Hollywood and Bollywood, we compared them using different centrality measures and network analysis techniques. 
-  For example, we found that the average degree, or the average number of connections per actor, was higher in Hollywood than in Bollywood. 
-  This means that actors in Hollywood tend to work with more people. We also found that the clustering coefficient, or the measure of how much actors cluster together in groups, was higher in Bollywood. 
-  This shows that actors in Bollywood are more likely to work with the same colleagues over and over.
-  </p>
-
-  Below you'll find a comparison of the main actors' ego networks in different cinematographic industries. Ego networks are network graphs were each individual node is an "ego". They allow us to describe and index the variation among individuals in the way they are embedded in "local" social structures.
-  Additional supporting statistics are provided. -->
-  <center><p><img src="images/hollywood_en.jpg" alt="image", width="80%"/></p></center>
-
-  <!-- <p>
-    The Average geodesic distance for USA is 1.9047843371821496 <br>
-  The average clustering for USA is 0.621302986208149 <br>
-  The average diameter for USA is 2.0 <br>
-  The average brokerage for USA is 7404.7 <br>
-  </p> -->
-  
-
-<center><p><img src="images/uk_en.jpg" alt="image", width="80%"/></p></center>
-
-  <!-- <p>
-    The average diameter for UK is 2.0 <br>
-  The average clustering for UK is 0.725282581237031 <br>
-  The average brokerage for UK is 20310.555555555555 <br>
-  The Average geodesic distance for UK is 1.7431432656141395 <br>
-  </p> -->
-  
-<center><p><img src="images/bollywood_en.jpg" alt="image", width="80%"/></p></center>
-  
-  <!-- <p>
-    The average brokerage for India is 235.75 <br> 
-    The average clustering for India is 0.7333170074269646 <br>
-    The average diameter for India is 2.0 <br>
-    The Average geodesic distance for India is 1.3985930509308724 <br>
-  </p>
-   -->
-
-  <center><p><img src="images/france_en.jpg" alt="image", width="80%"/></p></center>
-<!-- <p>
-  The average clustering for France is 0.938542413976621 <br>
-  The Average geodesic distance for France is 1.6208649502959767 <br>
-  The average brokerage for France is 4042.3 <br>
-  The average diameter for France is 1.9 <br>
-</p> -->
-  
-Beautiful, but what do they mean ?
-
-You may already have an idea but some additional key statistics and graph metrics computed on these ego networks can enlighten us further :
-
-  <p> The
-    average geodesic distance, being the mean of the shortest path lengths 
-   among all connected pairs in the ego network, informs us of the degree 
-   to which the nodes in the graph are connected to each other and how easy
-    it is to reach one node from another. India having the lowest average 
-   goedesic distance (India : 1.399, versus 
-   USA:1.908, UK : 1.743, FR : 1.621), 
-   we deduce that it is the country where actors are the most connected and
-    where it is easy to reach one actor from another. It indicate that the 
-   successfull actors are more connected and have a stronger sense of 
-   community. Whereas it is less the case for the three other countries.</p>
-
-<p>
-  The
-  average diameter, being the average length of the longest path between 
- connected actors for the four countries is not considerably different 
- (FR : 1.9, UK : 2, usa : 2, India : 2), hence we can conclude from this regard
-  any specific information on the difference in the connection of actor 
- in the graphs.
- 
- Here
-  the value of the average brokerage can inform us the overall influence 
- of nodes in a network, a high average brokerage informs that in the 
- industry of the given country, on average there are more very 
- influencial actors, that connect diffenrent group/communities together. 
- Which makes them very important actors to know (try at least). We see 
- from our results that the average value of the brokerage in the USA, UK 
- and France in high (7404, 20310, 4042, respectively), whereas this value
-  is much (much) lower in India (235).
-</p>
-
-<p>
-  Finally,
-  we analyze the clustering coefficient. A higher clustering coefficient 
- indicates that the node's neighbors are more connected to each other and
-  that there are more triangles in the neighborhood of the node. France 
- is the country with the highest clustering coefficient 
- (0.939, vs USA : 0.621, UK : 0.725, 
- India : 0.733), and we can clearly see on its ego network 
- graphs that the structures are overall more triabgular. 
- Lower clustering coefficient indicates that the node's neighbors are 
- less connected to each other and that there are fewer triangles in the 
- neighborhood of the node. We can also clearly see that on the other's 
- countries' ego graphs.
-</p>
-  
-  <h2 id="Conclusion">You're now (not) completely ready to get into the film industry of your choice !</h2>
-  <p>
-    Overall, these co-stardom networks provide a unique glimpse into the structures and dynamics of the Hollywood and Bollywood film industries. It's always fascinating to see how different industries operate and these networks give us a new way of looking at things. 
-    We were able to identify key differences in structures of cinematographic industries. Did you know that Hollywood may actually be more accessible than Bollywood ? You were able to take a glimpse on the main protagonists of every cinematographic industry.
-    Who knows what other insights we'll uncover as we continue to analyze these networks in the future?
-  </p>
-
-</div>
-  
-        </footer>
-      </main>
-    </body>
+</main>
+<script src="bg.js"></script>
+</body>
 </html>

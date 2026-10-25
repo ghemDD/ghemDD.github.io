@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MARBLE &mdash; Na&euml;l Ouerghemi</title>
+<meta name="description" content="MARBLE &mdash; research by Na&euml;l Ouerghemi.">
+<link rel="icon" type="image/jpeg" href="../icon.jpg">
+<link rel="apple-touch-icon" href="../icon.jpg">
+<link rel="stylesheet" href="../style.css">
+<script src="../theme.js"></script>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+<main>
+  <button id="theme-toggle" class="theme-toggle" type="button">☾</button>
+  <a class="back" href="../">&larr; Na&euml;l Ouerghemi</a>
+  <section class="panel">
+    <h1>MARBLE: An Agentic Benchmark for Spatial Reasoning and Visual Abstraction</h1>
+    <div class="pmeta"><strong>NeurIPS 2026</strong> &middot; Evaluations &amp; Datasets track</div>
+    <div class="pmeta"><span class="authors">Y. Jiang, <strong>N. Ouerghemi</strong>, Y. Chai, M. Brbi&#263;, M. Moor</span></div>
+    <div class="links" style="margin-top:0.75rem"><a href="https://marble-benchmark.github.io/" target="_blank" rel="noopener noreferrer">Website</a>
+      <a href="https://arxiv.org/pdf/2506.22992" target="_blank" rel="noopener noreferrer">arXiv</a></div>
+    <img class="hero" src="../figs/marble.png" alt="MARBLE environments: CUBE, MAZE and BLOX">
+    <article>
+  <section>
+  <h2>Summary</h2>
+  <p><strong>MARBLE</strong> is a diagnostic agentic benchmark for spatially grounded reasoning and planning across three
+  gym-style environments&mdash;3D assembly, a dynamic maze, and pose-dependent block navigation&mdash;with difficulty
+  controlled along two axes: observation format and planning horizon. Ten frontier MLLMs are evaluated against human
+  baselines.</p>
+  </section>
+  <section>
+  <h2>Key findings</h2>
+  <ul class="findings">
+  <li><strong>Visual-to-spatial abstraction, not planning, is the dominant bottleneck</strong>: replacing human-annotated
+  symbolic states with raw visual observations collapses success rates (e.g., 87.9% &rarr; 6.5% for Kimi-K2.6), while
+  longer planning horizons mainly affect weaker models.</li>
+  <li>The strongest model reaches only <strong>7.3%</strong> average success on the hard split.</li>
+  <li>Spatial state parsing probes isolate perception from planning: frontier MLLMs fail to extract structured spatial
+  states that are trivial for humans, with an isometric perception gap (accuracy rises to 80&ndash;99% under flat 2D views)
+  partially recovered by agentic code-execution parsing (up to +62 points).</li>
+  </ul>
+  </section>
+    </article>
+  </section>
+
+  <footer><a href="../">Na&euml;l Ouerghemi</a> &middot; Lausanne, Switzerland</footer>
+</main>
+<script src="../bg.js"></script>
+</body>
+</html>

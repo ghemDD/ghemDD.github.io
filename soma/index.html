@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SOMA &mdash; Na&euml;l Ouerghemi</title>
+<meta name="description" content="SOMA: a benchmark for fine-grained egocentric behavior and body-motion understanding.">
+<link rel="icon" type="image/jpeg" href="../icon.jpg">
+<link rel="apple-touch-icon" href="../icon.jpg">
+<link rel="stylesheet" href="../style.css">
+<script src="../theme.js"></script>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+<main>
+  <button id="theme-toggle" class="theme-toggle" type="button">☾</button>
+  <a class="back" href="../">&larr; Na&euml;l Ouerghemi</a>
+  <section class="panel">
+    <h1>SOMA: A Benchmark for Fine-Grained Egocentric Behavior and Body-Motion Understanding</h1>
+    <div class="pmeta"><em>Under review</em> &middot; Mathis Group for Computational Neuroscience &amp; AI, EPFL</div>
+    <div class="pmeta"><span class="authors">Matea Tashkovska, <strong>Na&euml;l Ouerghemi</strong>, Haozhe Qi,
+    Alexander Mathis</span></div>
+    <img class="hero" src="../figs/soma.png" alt="SOMA task examples and model-versus-human performance">
+    <article>
+      <h2>Summary</h2>
+      <p>Understanding human body motion matters for multimodal systems that observe and assist people, but
+      evaluations of multimodal LLMs largely target objects, scenes, and coarse actions. Body motion is harder: it
+      has to be inferred from the egocentric perspective, where the body itself is only partly visible and motion
+      must be reconstructed from occluded and temporally distributed cues.</p>
+      <p><strong>SOMA</strong> is a benchmark for fine-grained motion understanding from egocentric video, built on
+      <strong>1,632 human-verified questions</strong> across <strong>12 tasks</strong> and three capability axes:
+      body configuration, motion dynamics, and temporal reasoning.</p>
+      <h2>Key findings</h2>
+      <ul class="findings">
+        <li>Across <strong>37 MLLMs</strong> &mdash; closed-source, open-source, and specialized egocentric models &mdash;
+        the strongest reaches <strong>50.0%</strong> accuracy against <strong>68.5%</strong> for human annotators.</li>
+        <li>Models are far better at <strong>recognizing what is happening</strong> than at reading how the body is
+        configured or how motion unfolds over time.</li>
+        <li>Common failure modes point to <strong>missing capabilities</strong> rather than missing data, narrowing the
+        gap to specific, addressable weaknesses.</li>
+      </ul>
+    </article>
+  </section>
+
+  <footer>Na&euml;l Ouerghemi &middot; Lausanne, Switzerland</footer>
+</main>
+<script src="../bg.js"></script>
+</body>
+</html>

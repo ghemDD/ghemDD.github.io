@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SkySpector &mdash; Na&euml;l Ouerghemi</title>
+<meta name="description" content="SkySpector &mdash; research by Na&euml;l Ouerghemi.">
+<link rel="icon" type="image/jpeg" href="../icon.jpg">
+<link rel="apple-touch-icon" href="../icon.jpg">
+<link rel="stylesheet" href="../style.css">
+<script src="../theme.js"></script>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+<main>
+  <button id="theme-toggle" class="theme-toggle" type="button">☾</button>
+  <a class="back" href="../">&larr; Na&euml;l Ouerghemi</a>
+  <section class="panel">
+    <h1>SkySpector: Query-Centric Multi-Positive Retrieval for Earth Observation</h1>
+    <div class="pmeta"><strong>Oral</strong>, TerraBytes II Workshop at ECCV 2026 &middot; <strong>Oral</strong>, 2nd ESA&ndash;NASA Workshop on AI Foundation Models for Earth Observation &middot; Extended manuscript in preparation</div>
+    <div class="pmeta"><span class="authors"><strong>N. Ouerghemi</strong>, C. Tomoiaga, M. Detyniecki</span></div>
+    <div class="links" style="margin-top:0.75rem"><a href="https://openreview.net/pdf?id=xpxFsK3pcN" target="_blank" rel="noopener noreferrer">PDF</a></div>
+    <img class="hero" src="../figs/skyspector.png" alt="SkySpector retrieval example">
+    <article>
+  <section>
+  <h2>Summary</h2>
+  <p><strong>SkySpector</strong> is the first multi-positive, query-centric text-to-image retrieval benchmark for Earth
+  observation: 412 analyst-style queries with expert-vetted, pool-wide relevance labels over a shared pool of 972 images,
+  stratified by semantic level (scene, region, instance) and tagged with six visual phenomena. Built during a research
+  internship at AXA.</p>
+  </section>
+  <section>
+  <h2>Key findings</h2>
+  <ul class="findings">
+  <li>Across <strong>16 general-purpose and remote-sensing VLMs</strong>, model rankings that are stable on caption
+  benchmarks (Kendall&rsquo;s &tau; &ge; 0.72) <strong>collapse under analyst-style queries</strong> (&tau; = 0.13), with
+  the largest drops on relation, count, and layout queries.</li>
+  <li>MLLMs used as training-free rerankers recover <strong>+13.9 NDCG@10</strong> over the best first-stage retrieval
+  score, implicating single-vector compression as a key retrieval bottleneck.</li>
+  </ul>
+  </section>
+    </article>
+  </section>
+
+  <footer><a href="../">Na&euml;l Ouerghemi</a> &middot; Lausanne, Switzerland</footer>
+</main>
+<script src="../bg.js"></script>
+</body>
+</html>

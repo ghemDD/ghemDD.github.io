@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SPINE &mdash; Na&euml;l Ouerghemi</title>
+<meta name="description" content="SPINE &mdash; research by Na&euml;l Ouerghemi.">
+<link rel="icon" type="image/jpeg" href="../icon.jpg">
+<link rel="apple-touch-icon" href="../icon.jpg">
+<link rel="stylesheet" href="../style.css">
+<script src="../theme.js"></script>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+<main>
+  <button id="theme-toggle" class="theme-toggle" type="button">☾</button>
+  <a class="back" href="../">&larr; Na&euml;l Ouerghemi</a>
+  <section class="panel">
+    <h1>SPINE: Restoring Spatial Structure in Multimodal LLMs</h1>
+    <div class="pmeta">MLBio, EPFL</div>
+  
+    <img class="hero" src="../figs/spine.png" alt="Layer-wise ablation for language modeling tasks">
+    <article>
+  <section>
+  <h2>Summary</h2>
+  <p>Multimodal LLMs lose spatial structure long before they answer a spatial question. Using a spatial-structure metric,
+  this project traces where the loss happens: CLIP&rsquo;s deep layers trade spatial coherence for global semantics, the MLP
+  projector induces a further 42% drop, and processing inside the LLM degrades what remains by 73% by mid-depth.</p>
+  <p><strong>SPINE</strong> restores that structure in two steps. A <strong>training-free self-calibration</strong> step
+  recovers spatial coherence from the frozen vision encoder&rsquo;s intermediate layers (&times;2.9 on the structure metric);
+  the calibrated features are then injected as residuals into early LLM layers and trained with a structure-preserving
+  objective that counteracts degradation throughout the LLM.</p>
+  </section>
+  <section>
+  <h2>Key findings</h2>
+  <ul class="findings">
+  <li><strong>+3.9 average points</strong> across seven spatial-reasoning benchmarks, including <strong>+12.8</strong> on
+  What&rsquo;sUp, while also improving grounding and general VQA.</li>
+  <li>A systematic study of multi-layer vision fusion (6 methods, 13 benchmarks) mapping the interplay between layer
+  selection, injection depth, and alignment quality.</li>
+  </ul>
+  </section>
+    </article>
+  </section>
+
+  <footer><a href="../">Na&euml;l Ouerghemi</a> &middot; Lausanne, Switzerland</footer>
+</main>
+<script src="../bg.js"></script>
+</body>
+</html>

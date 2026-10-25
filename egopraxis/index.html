@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EgoPraxis &mdash; Na&euml;l Ouerghemi</title>
+<meta name="description" content="EgoPraxis &mdash; research by Na&euml;l Ouerghemi.">
+<link rel="icon" type="image/jpeg" href="../icon.jpg">
+<link rel="apple-touch-icon" href="../icon.jpg">
+<link rel="stylesheet" href="../style.css">
+<script src="../theme.js"></script>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+<main>
+  <button id="theme-toggle" class="theme-toggle" type="button">☾</button>
+  <a class="back" href="../">&larr; Na&euml;l Ouerghemi</a>
+  <section class="panel">
+    <h1>EgoPraxis: Multimodal Modeling of Egocentric Human Motion</h1>
+    <div class="pmeta">Master&rsquo;s thesis &middot; Mathis Group for Computational Neuroscience &amp; AI, EPFL &middot; <strong>In preparation</strong></div>
+    <div class="pmeta"><span class="authors"><strong>N. Ouerghemi</strong>, M. Tashkovska, A. Mathis</span></div>
+  
+    <img class="hero" src="../figs/egopraxis.png" alt="EgoPraxis architecture overview">
+    <article>
+  <section>
+  <h2>Summary</h2>
+  <p>Egocentric video shows the world from the wearer&rsquo;s viewpoint, but it rarely shows the wearer&rsquo;s own body: apart
+  from glimpses of the hands, posture, trunk, arms, and legs stay outside the field of view. Motion-capture suits and worn
+  sensors record full-body motion synchronized with the video, yet vision-language models have no way to read it. This
+  thesis asks whether a VLM that reads the wearer&rsquo;s body motion reasons better about egocentric activity, and builds
+  both the model and the benchmark needed to answer that question.</p>
+  <p><strong>EgoPraxis</strong> treats full-body motion as a discrete token modality inside a pretrained vision-language
+  backbone: a frozen product-quantized tokenizer turns continuous body motion into a code vocabulary the model reads and
+  writes under the same next-token objective as text, and a three-stage curriculum trains a single model to reconstruct
+  full-body motion from head- and wrist-mounted sensors, generate motion from language, caption and narrate body motion,
+  and answer questions about the camera wearer&rsquo;s actions.</p>
+  <p><strong>EgoMotion-QA</strong> is the measuring instrument: a participant-disjoint benchmark of 35,710 multiple-choice
+  questions over household (Nymeria) and kitchen (EPFL-Smart-Kitchen-30) recordings, spanning eleven proprioceptive and
+  temporal reasoning categories, with multi-solver blind filtering for quality control and a public evaluation protocol.</p>
+  </section>
+  <section>
+  <h2>Key findings</h2>
+  <ul class="findings">
+  <li>EgoPraxis-4B reaches <strong>60.0%</strong> on EgoMotion-QA, <strong>+14.1 points</strong> over the best zero-shot
+  vision-language model in the 2B&ndash;12B range and <strong>+2.6</strong> over a backbone-matched fine-tuned control,
+  a margin that comes from the motion curriculum rather than motion input at test time.</li>
+  <li>The largest gains land on concurrent body state (+6.9) and before&ndash;after ordering (+6.5), the categories where
+  video alone underdetermines the answer.</li>
+  <li>The same model reconstructs full-body motion from sparse worn sensors competitively with a reimplementation of EgoLM,
+  narrates body motion, and generates it from text.</li>
+  <li>Probing shows the trained model reads its motion input rather than treating it as noise: denser frame sampling and
+  larger video-only models do not close the reasoning gap.</li>
+  </ul>
+  </section>
+    </article>
+  </section>
+
+  <footer><a href="../">Na&euml;l Ouerghemi</a> &middot; Lausanne, Switzerland</footer>
+</main>
+<script src="../bg.js"></script>
+</body>
+</html>

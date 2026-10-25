@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PORTAL &mdash; Na&euml;l Ouerghemi</title>
+<meta name="description" content="PORTAL &mdash; research by Na&euml;l Ouerghemi.">
+<link rel="icon" type="image/jpeg" href="../icon.jpg">
+<link rel="apple-touch-icon" href="../icon.jpg">
+<link rel="stylesheet" href="../style.css">
+<script src="../theme.js"></script>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+<main>
+  <button id="theme-toggle" class="theme-toggle" type="button">☾</button>
+  <a class="back" href="../">&larr; Na&euml;l Ouerghemi</a>
+  <section class="panel">
+    <h1>PORTAL: Rethinking Projector Training in Multimodal LLMs</h1>
+    <div class="pmeta"><strong>NeurIPS 2026</strong></div>
+    <div class="pmeta"><span class="authors">F. Gr&ouml;ger*, <strong>N. Ouerghemi</strong>*, S. Wen*, M. Brbi&#263; &nbsp;<span style="color:var(--faint)">(*equal contribution)</span></span></div>
+    <div class="links" style="margin-top:0.75rem"><a href="https://brbiclab.epfl.ch/projects/portal/" target="_blank" rel="noopener noreferrer">Website</a>
+      <a href="https://arxiv.org/abs/2610.18598" target="_blank" rel="noopener noreferrer">arXiv</a></div>
+    <img class="hero" src="../figs/portal.png" alt="Projector alignment solution space">
+    <article>
+  <section>
+  <h2>Summary</h2>
+  <p>Projector alignment&mdash;the standard first stage of multimodal LLM training&mdash;turns out to be a coarse
+  operation with a broad solution space: 10&ndash;20% of the standard 558k image-caption corpus recovers most downstream
+  gains, and projectors trained on different datasets can be linearly interpolated while preserving performance.</p>
+  <p><strong>PORTAL</strong> takes this observation to its limit: a <strong>training-free, closed-form projector</strong>
+  built via optimal transport between the vision and LLM feature distributions&mdash;no paired data, no gradient
+  steps&mdash;with a proof that second-order moment matching preserves pairwise cosine dispersion at the attention input.</p>
+  </section>
+  <section>
+  <h2>Key findings</h2>
+  <ul class="findings">
+  <li>Matches the 558k-trained alignment pipeline across <strong>6 LLM backbones</strong>, 2 vision encoders, and 16
+  benchmarks (within 1.6 average points, exceeding it in 3 of 7 settings).</li>
+  <li>As a warm start, it matches the trained baseline using <strong>135&times; less training compute</strong>.</li>
+  </ul>
+  </section>
+    </article>
+  </section>
+
+  <footer><a href="../">Na&euml;l Ouerghemi</a> &middot; Lausanne, Switzerland</footer>
+</main>
+<script src="../bg.js"></script>
+</body>
+</html>
