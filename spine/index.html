@@ -25,7 +25,7 @@
   <h2>Summary</h2>
   <p>Multimodal LLMs lose spatial structure long before they answer a spatial question. Using a spatial-structure metric,
   this project traces where the loss happens: CLIP&rsquo;s deep layers trade spatial coherence for global semantics, the MLP
-  projector induces a further 42% drop, and processing inside the LLM degrades what remains by 73% by mid-depth.</p>
+  projector induces a further 42% drop, and processing inside the LLM degrades what remains by 54% by mid-depth.</p>
   <p><strong>SPINE</strong> restores that structure in two steps. A <strong>training-free self-calibration</strong> step
   recovers spatial coherence from the frozen vision encoder&rsquo;s intermediate layers (&times;2.9 on the structure metric);
   the calibrated features are then injected as residuals into early LLM layers and trained with a structure-preserving
