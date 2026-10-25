@@ -53,6 +53,9 @@ h1 { margin:0 0 .5rem; font-size:2.5rem; line-height:1.15; font-weight:500;
 .linkline .sep { color:var(--faint); margin:0 .3rem; }
 .contact a, .linkline a { display:inline-flex; align-items:center; gap:.36rem; }
 .contact .ico, .linkline .ico { width:1.02em; height:1.02em; flex:none; fill:currentColor; }
+/* the envelope is drawn edge-to-edge and solid, so it needs to sit smaller
+   than the Scholar and GitHub marks to carry the same visual weight */
+.contact .ico { width:.84em; height:.84em; }
 .bio p { margin-bottom:.8rem; }
 .bio p:last-child { margin-bottom:0; }
 
