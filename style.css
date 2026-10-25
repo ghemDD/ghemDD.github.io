@@ -51,8 +51,8 @@ h1 { margin:0 0 .5rem; font-size:2.5rem; line-height:1.15; font-weight:500;
 .contact { margin:0 0 .15rem; color:var(--muted); font-size:.97rem; }
 .linkline { margin:0 0 1rem; font-size:.97rem; }
 .linkline .sep { color:var(--faint); margin:0 .3rem; }
-.linkline a { display:inline-flex; align-items:center; gap:.36rem; }
-.linkline .ico { width:1.02em; height:1.02em; flex:none; fill:currentColor; }
+.contact a, .linkline a { display:inline-flex; align-items:center; gap:.36rem; }
+.contact .ico, .linkline .ico { width:1.02em; height:1.02em; flex:none; fill:currentColor; }
 .bio p { margin-bottom:.8rem; }
 .bio p:last-child { margin-bottom:0; }
 
