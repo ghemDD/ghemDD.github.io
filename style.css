@@ -229,3 +229,69 @@ main { padding-top:2.6rem; }
 @media (max-width:760px) {
   .panel { padding:1.25rem 1.1rem; }
 }
+
+/* ------------------------------------------------------------ video player */
+/* Video player bar (player.js). The bar is a small pixel-framed pill like the back and theme
+   buttons; the tracks are flat pixel bars with a square handle. */
+.vframe { position:relative; margin:1.5rem 0 0; border-radius:8px; overflow:hidden; outline:none;
+  box-shadow:0 1px 2px rgba(18,18,28,.06), 0 6px 18px -10px rgba(18,18,28,.28); }
+:root[data-theme="dark"] .vframe { box-shadow:0 1px 2px rgba(0,0,0,.5), 0 8px 22px -10px rgba(0,0,0,.7); }
+.vframe video.hero { margin:0; border-radius:0; box-shadow:none; cursor:pointer; }
+.vframe:fullscreen { border-radius:0; display:flex; align-items:center; background:#000; }
+.vframe:fullscreen video.hero { height:100%; object-fit:contain; background:#000; }
+
+/* before the first play: one large stepped play button on the poster */
+.vc-big { position:absolute; left:50%; top:50%; transform:translate(-50%, -50%); display:none;
+  width:4.6rem; height:4.6rem; padding:0 0 0 .3rem; align-items:center; justify-content:center; cursor:pointer;
+  color:var(--fg); background:var(--panel); background-clip:padding-box;
+  border:6px solid transparent; border-image:var(--frame-s) 4 / 6px; }
+.vc-big:hover { color:var(--link); border-image-source:var(--frame-h); }
+.vframe.is-fresh .vc-big { display:flex; }
+.vframe.is-fresh .vctl { display:none; }
+
+.vctl { position:absolute; left:.6rem; right:.6rem; bottom:.6rem; display:flex; align-items:center; gap:.55rem;
+  padding:.3rem .55rem; color:var(--fg); font-size:.78rem; line-height:1;
+  background:var(--panel); background-clip:padding-box; border:4px solid transparent; border-image:var(--frame-s) 4;
+  opacity:0; transform:translateY(.4rem); transition:opacity .2s, transform .25s cubic-bezier(.3, 0, .2, 1); }
+.vframe.is-active .vctl, .vframe:focus-within .vctl, .vframe.is-paused .vctl { opacity:1; transform:none; }
+.vframe.is-active video.hero { cursor:pointer; }
+.vframe:not(.is-active):not(.is-paused) video.hero { cursor:none; }
+/* while the bar is away, a 2 px line along the bottom edge shows how far the video has played */
+.vframe::after { content:""; position:absolute; left:0; bottom:0; height:2px; width:var(--p, 0%);
+  background:var(--link); pointer-events:none; transition:opacity .2s; }
+:root[data-theme="dark"] .vframe::after { background:#e9b95f; }
+.vframe.is-fresh::after, .vframe.is-active::after, .vframe:focus-within::after, .vframe.is-paused::after { opacity:0; }
+@media (hover:none) { .vctl { opacity:1; transform:none; } .vframe::after { display:none; } }
+@media (prefers-reduced-motion:reduce) { .vctl, .vframe::after { transition:none; } }
+
+.vc-btn, .vc-rate { flex:none; display:flex; align-items:center; justify-content:center; padding:0; margin:0;
+  border:0; background:none; color:inherit; font:inherit; cursor:pointer; }
+.vc-btn { width:1.6rem; height:1.6rem; }
+.vc-btn:hover, .vc-rate:hover { color:var(--link); }
+.vc-btn:focus-visible, .vc-rate:focus-visible { outline:2px solid var(--link); outline-offset:1px; }
+.vc-time { flex:none; color:var(--muted); font-variant-numeric:tabular-nums; white-space:nowrap; }
+.vc-vol { flex:none; display:flex; align-items:center; gap:.25rem; }
+.vc-rates { flex:none; display:flex; gap:.1rem; }
+.vc-rate { height:1.6rem; padding:0 .32rem; color:var(--muted); font-variant-numeric:tabular-nums; }
+.vc-rate.on { color:var(--fg); font-weight:600; box-shadow:inset 0 -2px 0 var(--link); }
+:root[data-theme="dark"] .vc-rate.on { box-shadow:inset 0 -2px 0 #e9b95f; }
+
+/* tracks: --p is the played (or loud) share, set from JS */
+.vctl input[type=range] { -webkit-appearance:none; appearance:none; margin:0; height:1.6rem; background:none; cursor:pointer; --p:0%; }
+.vc-seek { flex:1 1 auto; min-width:3rem; }
+.vc-volume { width:4.2rem; }
+.vctl input[type=range]::-webkit-slider-runnable-track { height:6px;
+  background:linear-gradient(90deg, var(--link) var(--p), var(--line) var(--p)); }
+.vctl input[type=range]::-moz-range-track { height:6px; background:var(--line); }
+.vctl input[type=range]::-moz-range-progress { height:6px; background:var(--link); }
+.vctl input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:12px; height:12px; margin-top:-3px;
+  background:var(--fg); border:0; border-radius:0; box-shadow:0 0 0 2px var(--panel); }
+.vctl input[type=range]::-moz-range-thumb { width:12px; height:12px; background:var(--fg); border:0; border-radius:0; }
+.vctl input[type=range]:focus-visible { outline:2px solid var(--link); outline-offset:2px; }
+:root[data-theme="dark"] .vctl input[type=range]::-webkit-slider-runnable-track {
+  background:linear-gradient(90deg, #e9b95f var(--p), var(--line) var(--p)); }
+:root[data-theme="dark"] .vctl input[type=range]::-moz-range-progress { background:#e9b95f; }
+
+/* narrow frames: the volume slider goes, only the current speed shows (click steps it) */
+.vctl.narrow .vc-volume, .vctl.narrow .vc-rate:not(.on) { display:none; }
+.vctl.tiny .vc-time { display:none; }
