@@ -295,3 +295,14 @@ main { padding-top:2.6rem; }
 /* narrow frames: the volume slider goes, only the current speed shows (click steps it) */
 .vctl.narrow .vc-volume, .vctl.narrow .vc-rate:not(.on) { display:none; }
 .vctl.tiny .vc-time { display:none; }
+
+/* ------------------------------------------------------------ affiliations */
+/* pixel logos (drawn in __logos/make.py) at the right end of the name line */
+.title-row { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:.6rem 1.5rem; margin:0 0 .5rem; }
+.title-row h1 { margin:0; }
+.affil { display:flex; flex-wrap:wrap; align-items:center; gap:1.1rem; margin:0; }
+.affil a { display:block; line-height:0; color:var(--fg); opacity:.85;
+  transition:transform .15s cubic-bezier(.3, 0, .2, 1), opacity .15s; }
+.affil a:hover { opacity:1; transform:translateY(-2px); }
+.affil svg { display:block; }
+.sr { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
