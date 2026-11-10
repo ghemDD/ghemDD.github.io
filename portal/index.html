@@ -7,11 +7,11 @@
 <meta name="description" content="PORTAL &mdash; research by Na&euml;l Ouerghemi.">
 <link rel="icon" type="image/jpeg" href="../icon.jpg">
 <link rel="apple-touch-icon" href="../icon.jpg">
-<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../style.css?v=3">
 <script src="../theme.js"></script>
 </head>
-<body>
-<canvas id="bg" aria-hidden="true"></canvas>
+<body class="project">
+<canvas id="px" aria-hidden="true" style="--px-zoom:1.45; --px-at:85% 32%"></canvas>
 <main>
   <button id="theme-toggle" class="theme-toggle" type="button">☾</button>
   <a class="back" href="../">&larr; Na&euml;l Ouerghemi</a>
@@ -21,7 +21,7 @@
     <div class="pmeta"><span class="authors">F. Gr&ouml;ger*, <strong>N. Ouerghemi</strong>*, S. Wen*, M. Brbi&#263; &nbsp;<span style="color:var(--faint)">(*equal contribution)</span></span></div>
     <div class="links" style="margin-top:0.75rem"><a href="https://brbiclab.epfl.ch/projects/portal/" target="_blank" rel="noopener noreferrer">Website</a>
       <a href="https://arxiv.org/abs/2610.18598" target="_blank" rel="noopener noreferrer">arXiv</a></div>
-    <img class="hero" src="../figs/portal.png" alt="Projector alignment solution space">
+    <video class="hero" controls preload="none" playsinline poster="../figs/portal_talk_poster.jpg" aria-label="NeurIPS 2026 talk: Rethinking Projector Training in Multimodal LLMs"><source src="../figs/portal_talk.mp4" type="video/mp4"><img class="hero" src="../figs/portal.png" alt="NeurIPS 2026 talk: Rethinking Projector Training in Multimodal LLMs"></video>
     <article>
   <section>
   <h2>Summary</h2>
@@ -43,8 +43,8 @@
     </article>
   </section>
 
-  <footer><a href="../">Na&euml;l Ouerghemi</a> &middot; Lausanne, Switzerland</footer>
+  <footer><a href="../">Na&euml;l Ouerghemi</a> &middot; Lausanne, Switzerland<span class="credit">Background after Camille Pissarro, <i>Boulevard Montmartre</i>, 1897, State Hermitage Museum</span></footer>
 </main>
-<script src="../bg.js"></script>
+<script src="../px/scene.js?v=2"></script>
 </body>
 </html>

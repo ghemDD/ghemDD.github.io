@@ -8,11 +8,11 @@
 <meta name="author" content="Na&euml;l Ouerghemi">
 <link rel="icon" type="image/jpeg" href="icon.jpg">
 <link rel="apple-touch-icon" href="icon.jpg">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=3">
 <script src="theme.js"></script>
 </head>
 <body>
-<canvas id="bg" aria-hidden="true"></canvas>
+<canvas id="px" aria-hidden="true"></canvas>
 <main>
   <button id="theme-toggle" class="theme-toggle" type="button">☾</button>
 
@@ -90,7 +90,7 @@
     </div>
 
     <div class="pub">
-      <a href="soma/"><img class="thumb" src="figs/soma.png" alt="SOMA benchmark overview"></a>
+      <a href="soma/"><video class="thumb" muted loop playsinline preload="none" poster="figs/soma.png" aria-label="SOMA benchmark overview"><source src="figs/soma.mp4" type="video/mp4"></video></a>
       <div>
         <p class="ptitle"><a href="soma/">SOMA: A Benchmark for Fine-Grained Egocentric Behavior and Body-Motion
         Understanding</a></p>
@@ -117,7 +117,7 @@
     </div>
 
     <div class="pub">
-      <a href="portal/"><img class="thumb" src="figs/portal.png" alt="Projector alignment solution space"></a>
+      <a href="portal/"><video class="thumb" muted loop playsinline preload="none" poster="figs/portal.png" aria-label="Projector alignment solution space"><source src="figs/portal.mp4" type="video/mp4"></video></a>
       <div>
         <p class="ptitle"><a href="portal/">Rethinking Projector Training in Multimodal LLMs</a></p>
         <p class="authors">Fabian Gr&ouml;ger*, <span class="me">Na&euml;l Ouerghemi</span>*, Shuo Wen*, Maria Brbi&#263;</p>
@@ -139,7 +139,9 @@
         <p class="venue">TerraBytes II Workshop at the European Conference on Computer Vision
         (<strong>ECCV</strong>), 2026 &mdash; <strong>Oral</strong><br>
         2nd ESA&ndash;NASA Workshop on AI Foundation Models for Earth Observation &mdash;
-        <strong>Oral</strong><br>Extended manuscript in preparation</p>
+        <strong>Oral</strong><br>
+        <strong>Challenge</strong> for the MORSE Workshop at the Conference on Computer Vision and
+        Pattern Recognition (<strong>CVPR</strong>), 2027<br>Extended manuscript in preparation</p>
         <p class="plinks">
           <a href="https://openreview.net/pdf?id=xpxFsK3pcN" target="_blank" rel="noopener noreferrer">Paper</a>
           <a href="skyspector/">Summary</a>
@@ -197,9 +199,35 @@
     </ul>
   </section>
 
-  <footer>Na&euml;l Ouerghemi &middot; Lausanne, Switzerland</footer>
+  <footer>Na&euml;l Ouerghemi &middot; Lausanne, Switzerland<span class="credit">Background after Camille Pissarro, <i>Boulevard Montmartre</i>, 1897, State Hermitage Museum</span></footer>
 
 </main>
-<script src="bg.js"></script>
+<script src="px/scene.js?v=2"></script>
+<script>
+// animated thumbnails are decorative, so anyone asking for reduced motion gets
+// the poster still instead
+if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.querySelectorAll('video.thumb').forEach(function (v) {
+    var i = document.createElement('img');
+    i.className = 'thumb'; i.src = v.poster; i.alt = v.getAttribute('aria-label') || '';
+    v.replaceWith(i);
+  });
+} else if (window.IntersectionObserver) {
+  // ~1 MB of clips between them, so nothing is fetched until the thumbnail is
+  // near the viewport, and it stops again once it scrolls away
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      var v = e.target;
+      if (e.isIntersecting) { v.play().catch(function () {}); }
+      else { v.pause(); }
+    });
+  }, { rootMargin: '200px 0px' });
+  document.querySelectorAll('video.thumb').forEach(function (v) { io.observe(v); });
+} else {
+  document.querySelectorAll('video.thumb').forEach(function (v) {
+    v.setAttribute('autoplay', ''); v.play().catch(function () {});
+  });
+}
+</script>
 </body>
 </html>

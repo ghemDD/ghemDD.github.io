@@ -7,11 +7,11 @@
 <meta name="description" content="SOMA: a benchmark for fine-grained egocentric behavior and body-motion understanding.">
 <link rel="icon" type="image/jpeg" href="../icon.jpg">
 <link rel="apple-touch-icon" href="../icon.jpg">
-<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../style.css?v=3">
 <script src="../theme.js"></script>
 </head>
-<body>
-<canvas id="bg" aria-hidden="true"></canvas>
+<body class="project">
+<canvas id="px" aria-hidden="true" style="--px-zoom:1.45; --px-at:4% 38%"></canvas>
 <main>
   <button id="theme-toggle" class="theme-toggle" type="button">☾</button>
   <a class="back" href="../">&larr; Na&euml;l Ouerghemi</a>
@@ -20,7 +20,7 @@
     <div class="pmeta"><em>Under review</em> &middot; Mathis Group for Computational Neuroscience &amp; AI, EPFL</div>
     <div class="pmeta"><span class="authors">Matea Tashkovska, <strong>Na&euml;l Ouerghemi</strong>, Haozhe Qi,
     Alexander Mathis</span></div>
-    <img class="hero" src="../figs/soma.png" alt="SOMA task examples and model-versus-human performance">
+    <video class="hero" controls preload="none" playsinline poster="../figs/soma_teaser_poster.jpg" aria-label="SOMA benchmark teaser"><source src="../figs/soma_teaser.mp4" type="video/mp4"><img class="hero" src="../figs/soma.png" alt="SOMA benchmark teaser"></video>
     <article>
       <h2>Summary</h2>
       <p>Understanding human body motion matters for multimodal systems that observe and assist people, but
@@ -42,8 +42,8 @@
     </article>
   </section>
 
-  <footer>Na&euml;l Ouerghemi &middot; Lausanne, Switzerland</footer>
+  <footer>Na&euml;l Ouerghemi &middot; Lausanne, Switzerland<span class="credit">Background after Camille Pissarro, <i>Boulevard Montmartre</i>, 1897, State Hermitage Museum</span></footer>
 </main>
-<script src="../bg.js"></script>
+<script src="../px/scene.js?v=2"></script>
 </body>
 </html>

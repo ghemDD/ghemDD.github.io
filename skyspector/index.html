@@ -7,17 +7,17 @@
 <meta name="description" content="SkySpector &mdash; research by Na&euml;l Ouerghemi.">
 <link rel="icon" type="image/jpeg" href="../icon.jpg">
 <link rel="apple-touch-icon" href="../icon.jpg">
-<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../style.css?v=3">
 <script src="../theme.js"></script>
 </head>
-<body>
-<canvas id="bg" aria-hidden="true"></canvas>
+<body class="project">
+<canvas id="px" aria-hidden="true" style="--px-zoom:1.45; --px-at:32% 12%"></canvas>
 <main>
   <button id="theme-toggle" class="theme-toggle" type="button">☾</button>
   <a class="back" href="../">&larr; Na&euml;l Ouerghemi</a>
   <section class="panel">
     <h1>SkySpector: Query-Centric Multi-Positive Retrieval for Earth Observation</h1>
-    <div class="pmeta"><strong>Oral</strong>, TerraBytes II Workshop at ECCV 2026 &middot; <strong>Oral</strong>, 2nd ESA&ndash;NASA Workshop on AI Foundation Models for Earth Observation &middot; Extended manuscript in preparation</div>
+    <div class="pmeta"><strong>Oral</strong>, TerraBytes II Workshop at ECCV 2026 &middot; <strong>Oral</strong>, 2nd ESA&ndash;NASA Workshop on AI Foundation Models for Earth Observation &middot; <strong>Challenge</strong>, MORSE Workshop at CVPR 2027 &middot; Extended manuscript in preparation</div>
     <div class="pmeta"><span class="authors"><strong>N. Ouerghemi</strong>, C. Tomoiaga, T. Laugel, M. Detyniecki</span></div>
     <div class="links" style="margin-top:0.75rem"><a href="https://openreview.net/pdf?id=xpxFsK3pcN" target="_blank" rel="noopener noreferrer">PDF</a></div>
     <img class="hero" src="../figs/skyspector.png" alt="SkySpector retrieval example">
@@ -42,8 +42,8 @@
     </article>
   </section>
 
-  <footer><a href="../">Na&euml;l Ouerghemi</a> &middot; Lausanne, Switzerland</footer>
+  <footer><a href="../">Na&euml;l Ouerghemi</a> &middot; Lausanne, Switzerland<span class="credit">Background after Camille Pissarro, <i>Boulevard Montmartre</i>, 1897, State Hermitage Museum</span></footer>
 </main>
-<script src="../bg.js"></script>
+<script src="../px/scene.js?v=2"></script>
 </body>
 </html>
