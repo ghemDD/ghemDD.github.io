@@ -104,10 +104,11 @@ h2 .hint { font-size:.9rem; font-weight:400; color:var(--muted); letter-spacing:
 
 /* ---------------------------------------------------------- project page */
 .back { display:inline-block; font-size:.95rem; margin-bottom:1.6rem; }
-/* the back link and the footer sit on the street, so they get the panels' glass */
-.back, footer { background:var(--panel); background-clip:padding-box; border:4px solid transparent; border-image:var(--frame-s) 4;
+/* the back link sits on the street, so it gets the panels' glass */
+.back { background:var(--panel); background-clip:padding-box; border:4px solid transparent; border-image:var(--frame-s) 4;
   -webkit-backdrop-filter:blur(16px) saturate(1.2); backdrop-filter:blur(16px) saturate(1.2); }
-.back { padding:.3rem .8rem; }
+.back { padding:.35rem .5rem; line-height:0; }
+.back .home { display:block; }
 article h2 { font-size:1.35rem; margin-top:2rem; }
 .pmeta { margin:.3rem 0 0; font-size:.97rem; color:var(--muted); }
 .pmeta strong { color:var(--fg); }
@@ -122,10 +123,6 @@ article h2 { font-size:1.35rem; margin-top:2rem; }
         box-shadow:0 1px 2px rgba(18,18,28,.06), 0 6px 18px -10px rgba(18,18,28,.28); }
 :root[data-theme="dark"] .hero {
   box-shadow:0 1px 2px rgba(0,0,0,.5), 0 8px 22px -10px rgba(0,0,0,.7); }
-
-/* ---------------------------------------------------------------- footer */
-footer { margin-top:3.5rem; padding-top:1.1rem; border-top:1px solid var(--line);
-         font-size:.88rem; color:var(--faint); }
 
 /* ------------------------------------------------------------ responsive */
 @media (max-width:760px) {
@@ -160,8 +157,43 @@ main { position:relative; }
 
 /* moving between pages cross-fades instead of cutting */
 @view-transition { navigation:auto; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration:.45s; animation-timing-function:cubic-bezier(.3, 0, .2, 1); }
 @media (prefers-reduced-motion:reduce) { @view-transition { navigation:none; } }
 body > main { position:relative; z-index:1; }
+/* the content reads best a size down from the browser default on wide screens:
+   everything in main (type, column, figures, frames) at 90%, the scene untouched */
+@media (min-width:761px) { body > main { zoom:.9; } }
+
+/* ------------------------------------------------------------- outline */
+/* The outline rail. Anchored by its right edge just left of the content column, so
+   opening it grows into the margin, never over the text. */
+.rail { position:fixed; z-index:2; top:50%; transform:translateY(-50%);
+  right:calc(50vw + var(--maxw) * .45 - 6px); max-width:calc(50vw - var(--maxw) * .45 - 16px);
+  background:var(--panel); background-clip:padding-box; border:4px solid transparent; border-image:var(--frame-s) 4; }
+.rail ol { list-style:none; margin:0; padding:.55rem .5rem; }
+.rail li + li { margin-top:.6rem; }
+.rail a { display:flex; align-items:center; color:var(--muted); white-space:nowrap; font-size:.8rem; line-height:1; }
+.rail a:hover, .rail a.on { color:var(--link); text-decoration:none; }
+/* one pixel square per section; the current one is lit, gaslight gold at night */
+.rail .tick { flex:none; width:8px; height:8px; background:currentColor; opacity:.4; }
+.rail a.on .tick { opacity:1; background:var(--link); }
+:root[data-theme="dark"] .rail a.on .tick { background:#e9b95f; box-shadow:0 0 0 2px rgba(233,185,95,.22); }
+/* the names stay folded away until the rail is hovered, focused or opened */
+.rail span { max-width:0; overflow:hidden; opacity:0; margin-left:0;
+  transition:max-width .28s cubic-bezier(.3, 0, .2, 1), opacity .2s, margin-left .28s; }
+.rail:hover span, .rail:focus-within span, .rail.open span { max-width:14rem; opacity:1; margin-left:.6rem; }
+@media (prefers-reduced-motion:reduce) { .rail span { transition:none; } }
+
+.rail-toggle { display:none; }
+/* with no room in the margin, the rail folds into a corner button */
+@media (max-width:1109px) {
+  .rail { display:none; top:auto; bottom:4rem; right:14px; transform:none; max-width:none; }
+  .rail.open { display:block; }
+  .rail-toggle { display:flex; position:fixed; z-index:3; right:14px; bottom:14px; width:2.4rem; height:2.4rem; padding:0;
+    align-items:center; justify-content:center; color:var(--muted); cursor:pointer;
+    background:var(--panel); background-clip:padding-box; border:4px solid transparent; border-image:var(--frame-s) 4; }
+  .rail-toggle:hover { color:var(--link); border-image-source:var(--frame-h); }
+}
 
 /* ------------------------------------------------------------- panels */
 /* Panels are pixel-art windows in the scene's own colours: Pissarro's cloud cream
@@ -193,8 +225,6 @@ body.project { --panel:rgba(241,238,232,.92); }
 .panel > *:last-child { margin-bottom:0; }
 .head { margin-bottom:0; }
 main { padding-top:2.6rem; }
-footer { margin:1.6rem auto 0; padding:.55rem 1.1rem; width:fit-content; max-width:100%; text-align:center; }
-footer .credit { display:block; margin-top:.3rem; font-size:.8em; color:var(--faint); }
 
 @media (max-width:760px) {
   .panel { padding:1.25rem 1.1rem; }

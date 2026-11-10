@@ -7,20 +7,20 @@
 <meta name="description" content="SOMA: a benchmark for fine-grained egocentric behavior and body-motion understanding.">
 <link rel="icon" type="image/jpeg" href="../icon.jpg">
 <link rel="apple-touch-icon" href="../icon.jpg">
-<link rel="stylesheet" href="../style.css?v=3">
+<link rel="stylesheet" href="../style.css?v=8">
 <script src="../theme.js"></script>
 </head>
 <body class="project">
 <canvas id="px" aria-hidden="true" style="--px-zoom:1.45; --px-at:4% 38%"></canvas>
 <main>
   <button id="theme-toggle" class="theme-toggle" type="button">☾</button>
-  <a class="back" href="../">&larr; Na&euml;l Ouerghemi</a>
+  <a class="back" href="../" aria-label="Home" title="Home"><svg class="home" width="18" height="16" viewBox="0 0 18 16" fill="currentColor" shape-rendering="crispEdges" aria-hidden="true"><rect x="8" y="0" width="2" height="2"/><rect x="6" y="2" width="2" height="2"/><rect x="8" y="2" width="2" height="2"/><rect x="10" y="2" width="2" height="2"/><rect x="4" y="4" width="2" height="2"/><rect x="6" y="4" width="2" height="2"/><rect x="8" y="4" width="2" height="2"/><rect x="10" y="4" width="2" height="2"/><rect x="12" y="4" width="2" height="2"/><rect x="2" y="6" width="2" height="2"/><rect x="4" y="6" width="2" height="2"/><rect x="6" y="6" width="2" height="2"/><rect x="8" y="6" width="2" height="2"/><rect x="10" y="6" width="2" height="2"/><rect x="12" y="6" width="2" height="2"/><rect x="14" y="6" width="2" height="2"/><rect x="0" y="8" width="2" height="2"/><rect x="2" y="8" width="2" height="2"/><rect x="4" y="8" width="2" height="2"/><rect x="6" y="8" width="2" height="2"/><rect x="8" y="8" width="2" height="2"/><rect x="10" y="8" width="2" height="2"/><rect x="12" y="8" width="2" height="2"/><rect x="14" y="8" width="2" height="2"/><rect x="16" y="8" width="2" height="2"/><rect x="2" y="10" width="2" height="2"/><rect x="4" y="10" width="2" height="2"/><rect x="6" y="10" width="2" height="2"/><rect x="8" y="10" width="2" height="2"/><rect x="10" y="10" width="2" height="2"/><rect x="12" y="10" width="2" height="2"/><rect x="14" y="10" width="2" height="2"/><rect x="2" y="12" width="2" height="2"/><rect x="4" y="12" width="2" height="2"/><rect x="6" y="12" width="2" height="2"/><rect x="10" y="12" width="2" height="2"/><rect x="12" y="12" width="2" height="2"/><rect x="14" y="12" width="2" height="2"/><rect x="2" y="14" width="2" height="2"/><rect x="4" y="14" width="2" height="2"/><rect x="6" y="14" width="2" height="2"/><rect x="10" y="14" width="2" height="2"/><rect x="12" y="14" width="2" height="2"/><rect x="14" y="14" width="2" height="2"/></svg></a>
   <section class="panel">
-    <h1>SOMA: A Benchmark for Fine-Grained Egocentric Behavior and Body-Motion Understanding</h1>
+    <h1 data-outline="Overview">SOMA: A Benchmark for Fine-Grained Egocentric Behavior and Body-Motion Understanding</h1>
     <div class="pmeta"><em>Under review</em> &middot; Mathis Group for Computational Neuroscience &amp; AI, EPFL</div>
     <div class="pmeta"><span class="authors">Matea Tashkovska, <strong>Na&euml;l Ouerghemi</strong>, Haozhe Qi,
     Alexander Mathis</span></div>
-    <video class="hero" controls preload="none" playsinline poster="../figs/soma_teaser_poster.jpg" aria-label="SOMA benchmark teaser"><source src="../figs/soma_teaser.mp4" type="video/mp4"><img class="hero" src="../figs/soma.png" alt="SOMA benchmark teaser"></video>
+    <video class="hero" controls preload="none" playsinline poster="../figs/soma_teaser_long_poster.jpg" aria-label="SOMA benchmark teaser"><source src="../figs/soma_teaser_long.mp4" type="video/mp4"><img class="hero" src="../figs/soma.png" alt="SOMA benchmark teaser"></video>
     <article>
       <h2>Summary</h2>
       <p>Understanding human body motion matters for multimodal systems that observe and assist people, but
@@ -42,8 +42,12 @@
     </article>
   </section>
 
-  <footer>Na&euml;l Ouerghemi &middot; Lausanne, Switzerland<span class="credit">Background after Camille Pissarro, <i>Boulevard Montmartre</i>, 1897, State Hermitage Museum</span></footer>
 </main>
-<script src="../px/scene.js?v=2"></script>
+<script src="../px/scene.js?v=3"></script>
+<script src="../outline.js?v=1"></script>
+<script>
+// the teaser's soundtrack is loud; it starts at 40% and the controls take it from there
+document.querySelectorAll('video.hero').forEach(function (v) { v.volume = 0.4; });
+</script>
 </body>
 </html>

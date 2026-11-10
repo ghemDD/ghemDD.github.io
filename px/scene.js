@@ -196,7 +196,11 @@
     var stars = [];
     for (p = 0; p < W * u(50); p++) if (sky[p] && Math.random() < 0.006 / (S * S)) stars.push({ p: p, at: 0.85 + Math.random() * 0.12, ph: Math.random() * 6 });
 
-    var NP = 64, perm = []; for (n = 0; n < NP * NP; n++) perm.push(Math.random());
+    // the sky is the same on every page: a fixed seed, and clouds placed by the real
+    // clock, so they keep drifting from one page to the next instead of reshuffling
+    var seed = 1897;
+    function seeded() { seed = (seed + 0x6D2B79F5) | 0; var z = Math.imul(seed ^ (seed >>> 15), 1 | seed); z ^= z + Math.imul(z ^ (z >>> 7), 61 | z); return ((z ^ (z >>> 14)) >>> 0) / 4294967296; }
+    var NP = 64, perm = []; for (n = 0; n < NP * NP; n++) perm.push(seeded());
     function lat(ix, iy) { return perm[((iy % NP + NP) % NP) * NP + ((ix % NP + NP) % NP)]; }
     function sm(t) { return t * t * (3 - 2 * t); }
     function vn(x, y) {
@@ -222,10 +226,10 @@
     var DYN = new Float32Array(W * H);
     var BAY4 = [[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]];
     var STEPS = 5;
-    var t0 = performance.now(), last = 0;
+    var last = 0;
 
     function draw(now) {
-      var t = (now - t0) / 1000, dt = Math.min(0.2, (now - (last || now)) / 1000);
+      var t = (Date.now() % 1e8) / 1000, dt = Math.min(0.2, (now - (last || now)) / 1000);
       last = now;
       if (k !== target) {
         var step = dt * 1000 / DUR;
@@ -370,4 +374,19 @@
     draw(performance.now());
     requestAnimationFrame(tick);
   }
+
+  // The camera moves between pages: each page leaves its framing of the scene
+  // behind, and the next one starts there and glides to its own.
+  var css0 = getComputedStyle(cv), mine = { t: css0.transform, o: css0.transformOrigin };
+  addEventListener('pagehide', function () {
+    try { sessionStorage.setItem('px-frame', JSON.stringify(mine)); } catch (e) {}
+  });
+  try {
+    var prev = JSON.parse(sessionStorage.getItem('px-frame') || 'null');
+    var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prev && !still && cv.animate && (prev.t !== mine.t || prev.o !== mine.o)) {
+      cv.animate([{ transform: prev.t, transformOrigin: prev.o }, { transform: mine.t, transformOrigin: mine.o }],
+                 { duration: 1100, easing: 'cubic-bezier(.3, 0, .2, 1)' });
+    }
+  } catch (e) {}
 })();
