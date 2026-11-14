@@ -301,7 +301,7 @@
       var amb = ramp([AMB_DAY, AMB_DUSK, AMB_NIGHT], k);
       var gas = clamp((k - 0.35) / 0.4, 0, 1);                 // gas comes up through dusk
       var skyCol = SKYRAMP.map(function (r) { return ramp(r, k); });
-      var moonF = SNOW ? 0 : clamp((k - 0.62) / 0.28, 0, 1), moonY = MOON.y + u(5) * (1 - moonF);   // rises a little as it comes out
+      var moonF = clamp((k - 0.62) / 0.28, 0, 1), moonY = MOON.y + u(5) * (1 - moonF);   // rises a little as it comes out
 
       for (var p = 0; p < W * H; p++) scratch[p] = sky[p] ? cloudI(p % W, (p / W) | 0, t) : SN[p] || IX[p];
       function dot(x, y, i) { x = Math.round(x); y = Math.round(y); if (x >= 0 && y >= 0 && x < W && y < H) scratch[y * W + x] = i; }
@@ -422,7 +422,12 @@
           var c = skyCol[i], cr = c[0], cg = c[1], cb = c[2];
           if (moonF > 0) {
             var mdx = p % W - MOON.x, mdy = (p / W | 0) - moonY, d2 = mdx * mdx + mdy * mdy, rr = MOON.r * MOON.r;
-            if (d2 <= rr) {
+            if (SNOW) {
+              // behind the snow clouds: no mares, a soft-edged pale disc and a wide dull glow, in dithered steps
+              var dn = Math.sqrt(d2) / MOON.r, sv = dn <= 1 ? 0.5 - 0.22 * dn * dn : 0.28 * Math.exp(-(dn - 1) * (dn - 1) / 3.2);
+              sv = Math.floor(sv * moonF * 6 + BAY4[(p / W | 0) & 3][p & 3] / 16) / 6;
+              if (sv > 0) { cr += (MOONC[0] - cr) * sv; cg += (MOONC[1] - cg) * sv; cb += (MOONC[2] - cb) * sv; }
+            } else if (d2 <= rr) {
               // the disc shows through clear sky; a cloud in front glows with it
               var M = MARES[Math.round(mdx / S) + ',' + Math.round(mdy / S)] ? MARE : MOONC, f = (i <= 1 ? 1 : i === 3 ? 0.92 : 0.78) * moonF;   // a passing cloud dims it, never bites it
               cr += (M[0] - cr) * f; cg += (M[1] - cg) * f; cb += (M[2] - cb) * f;
