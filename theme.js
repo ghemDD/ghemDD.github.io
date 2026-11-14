@@ -1,11 +1,11 @@
-/* Light by default; the toggle remembers the visitor's choice. */
+/* Night by default; the toggle remembers the visitor's choice. */
 (function () {
   try {
     var saved = localStorage.getItem('theme');
-    if (saved === 'dark' || saved === 'light') {
-      document.documentElement.setAttribute('data-theme', saved);
-    }
-  } catch (e) {}
+    document.documentElement.setAttribute('data-theme', saved === 'light' ? 'light' : 'dark');
+  } catch (e) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
 
   function current() {
     return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';

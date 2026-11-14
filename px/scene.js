@@ -212,17 +212,8 @@
     // the roadway (but not the wheel ruts down each lane), the pavements, the roofs,
     // and the tops of ledges, branches and awnings. Dark painted marks (people,
     // carriages, trunks) stay dark, so the crowd reads through the white.
-    // It snows on about one visit in five. The roll is made once per visit and kept in
-    // sessionStorage, so the weather holds as you move between pages; ?snow and
-    // ?nosnow force it either way.
-    var SNOW = /[?&]snow\b/.test(location.search);
-    if (!SNOW && !/[?&]nosnow\b/.test(location.search)) {
-      try {
-        var wx = sessionStorage.getItem('px-weather');
-        if (wx !== 'snow' && wx !== 'clear') { wx = Math.random() < 0.2 ? 'snow' : 'clear'; sessionStorage.setItem('px-weather', wx); }
-        SNOW = wx === 'snow';
-      } catch (e) {}
-    }
+    // It snows by default; ?nosnow shows the spring morning Pissarro painted.
+    var SNOW = !/[?&]nosnow\b/.test(location.search);
     var SN = new Uint8Array(W * H), flakes = [];
     if (SNOW) {
       var DARK = { 6: 1, 9: 1, 11: 1, 12: 1, 15: 1 };
