@@ -182,16 +182,76 @@
     });
     function rightEdge(y) { return VP.x + (y - VP.y) * (RIGHT - VP.x) / (H - VP.y); }
     function leftEdge(y) { return VP.x - (y - VP.y) * (VP.x - LEFT) / (H - VP.y); }
-    function walker() {
-      var right = Math.random() < 0.6, y = WALKY + Math.random() * (H - WALKY);
-      var span = (y - VP.y) * (right ? 1.4 : 0.7);
-      var woman = Math.random() < 0.35;
-      return { x: right ? rightEdge(y) + 2 + Math.random() * span : leftEdge(y) - 2 - Math.random() * span,
-               y: y, dy: (Math.random() < 0.5 ? -1 : 1) * u(0.8 + Math.random()), walked: Math.random() * 4,
-               woman: woman, hat: !woman && Math.random() < 0.45,
-               coat: woman ? [5, 6, 13, 12][(Math.random() * 4) | 0] : [11, 11, 12, 9][(Math.random() * 4) | 0] };
+    // the pavements run from each kerb to the front edge of its shops' awnings (a little
+    // out from the shopfront lines above, which run along the wall itself); a walker keeps the same share of that width as they go, so they follow
+    // the street's perspective and never step into a building or off the kerb
+    function wallX(y, right) { return right ? u(140) + (y - u(101)) * 180 / 51 : u(72) - (y - u(103)) * 72 / 77; }
+    function place(w) {
+      var kerb = w.right ? rightEdge(w.y) + u(1) : leftEdge(w.y) - u(1), wall = wallX(w.y, w.right);
+      var pad = u(0.5 + 1.6 * clamp((w.y - VP.y) / (H - VP.y), 0, 1));   // half a body's width
+      w.x = w.right ? Math.min(kerb + pad + w.f * (wall - kerb - 2 * pad), W + u(4)) : Math.max(kerb - pad - w.f * (kerb - wall - 2 * pad), -u(4));
+      return w.right ? wall - kerb > 2 * pad : kerb - wall > 2 * pad;     // is there room for them here?
     }
-    var walkers = []; for (n = 0; n < 90; n++) walkers.push(walker());
+    function walker() {
+      var w, r;
+      do {
+        var right = Math.random() < 0.6, woman = Math.random() < 0.3;
+        r = Math.random();
+        w = { right: right, f: Math.random(), y: WALKY + Math.random() * (H - WALKY),
+              dy: (Math.random() < 0.5 ? -1 : 1) * u(0.8 + Math.random()), walked: Math.random() * 4,
+              woman: woman, hat: !woman && Math.random() < 0.6, bonnet: woman && Math.random() < 0.5,
+              // Pissarro's crowd is near-black umber, with now and then a brown or a grey coat
+              coat: r < 0.66 ? 11 : r < 0.86 ? 12 : r < 0.95 ? 9 : 14, id: (Math.random() * 1e9) | 0 };
+      } while (!place(w));
+      return w;
+    }
+    var walkers = []; for (n = 0; n < 70; n++) walkers.push(walker());
+
+    // ---- snow (?snow): the street under a fresh fall ---------------------------
+    // Pissarro painted this boulevard in the snow too. Snow settles on what faces up:
+    // the roadway (but not the wheel ruts down each lane), the pavements, the roofs,
+    // and the tops of ledges, branches and awnings. Dark painted marks (people,
+    // carriages, trunks) stay dark, so the crowd reads through the white.
+    var SNOW = /[?&]snow\b/.test(location.search), SN = new Uint8Array(W * H), flakes = [];
+    if (SNOW) {
+      var DARK = { 6: 1, 9: 1, 11: 1, 12: 1, 15: 1 };
+      var hash = function (q, salt) { var z = Math.imul(q ^ salt, 2654435761); z ^= z >>> 15; z = Math.imul(z, 2246822519); return ((z ^ (z >>> 13)) >>> 0) / 4294967296; };
+      // drifts lie in clumps, so the cover is a soft noise over a few pixels, plus grain
+      var clump = function (x, y, c) {
+        var gx = x / c, gy = y / c, ix0 = Math.floor(gx), iy0 = Math.floor(gy), fx = gx - ix0, fy = gy - iy0;
+        var h = function (a, b) { return hash(a * 7919 + b * 104729, 5); };
+        var a0 = h(ix0, iy0) + (h(ix0 + 1, iy0) - h(ix0, iy0)) * fx, a1 = h(ix0, iy0 + 1) + (h(ix0 + 1, iy0 + 1) - h(ix0, iy0 + 1)) * fx;
+        return a0 + (a1 - a0) * fy;
+      };
+      for (p = 0; p < W * H; p++) {
+        if (sky[p]) continue;
+        var sx = p % W, sy = (p / W) | 0, ix = IX[p], up = sy > 0 ? IX[p - W] : 0;
+        var nz = 0.75 * clump(sx, sy, u(3)) + 0.25 * hash(p, 77);
+        var white = nz < 0.7 ? 2 : nz < 0.92 ? 3 : 1;                  // fresh, in shade, blue in shadow
+        if (sy > 0 && sky[p - W] && !DARK[ix]) { SN[p] = 2; continue; }        // roof ridges and edges
+        var roof = false;
+        for (var kk = 1; kk <= Math.round(u(5)) && !roof; kk++) if (sy - kk >= 0 && sky[p - kk * W]) roof = true;
+        if (roof && sy < u(96) && ix !== 13 && nz < 0.8) { SN[p] = white; continue; }
+        // the plane trees are bare in winter: their spring leaves become snow-laden twigs
+        if (ix === 13 && sy > u(55) && sy < u(150) && sx > u(30)) { SN[p] = nz < 0.45 ? 2 : nz < 0.6 ? 3 : 12; continue; }
+        if (sy > VP.y + u(1)) {
+          var onRoad = sx > leftEdge(sy) && sx < rightEdge(sy);
+          var onWalk = (sx >= rightEdge(sy) && sx < wallX(sy, true)) || (sx <= leftEdge(sy) && sx > wallX(sy, false));
+          if (onRoad) {
+            var sf = (sy - VP.y) / (H - VP.y), rut = false;
+            LANES.forEach(function (bx) { var lx = VP.x + (bx - VP.x) * sf; if (Math.abs(sx - lx) < Math.max(1, u(1.4) * sf)) rut = true; });
+            if (rut) { if (!DARK[ix] && nz < 0.5) SN[p] = 7; continue; }          // churned to slush
+            if (!DARK[ix] && nz < 0.8) SN[p] = white;
+            continue;
+          }
+          if (onWalk) { if (!DARK[ix] && nz < 0.88) SN[p] = white; continue; }
+        }
+        // the tops of ledges, branches and awnings: a light pixel over a dark one
+        if (DARK[ix] && up && !DARK[up] && !sky[p - W] && nz < 0.5) { SN[p - W] = 2; }
+        else if (DARK[ix] && sky[p - W] && nz < 0.8) SN[p] = 2;
+      }
+      for (n = 0; n < 220 * S; n++) flakes.push({ x: Math.random() * W, y: Math.random() * H, z: Math.random(), ph: Math.random() * 6.3 });
+    }
     var puffs = [];
     var stars = [];
     for (p = 0; p < W * u(50); p++) if (sky[p] && Math.random() < 0.006 / (S * S)) stars.push({ p: p, at: 0.85 + Math.random() * 0.12, ph: Math.random() * 6 });
@@ -212,6 +272,7 @@
       x /= S; y /= S;
       var cx = x * 0.034 + t * 0.03, cy = y * 0.085;
       var c = 0.62 * vn(cx, cy) + 0.28 * vn(cx * 2.1 + 5, cy * 2.1) + 0.1 * vn(cx * 4.3, cy * 4.3 + 9) + y / 95 * 0.22;
+      if (SNOW) return c < 0.36 ? 3 : c < 0.55 ? 2 : 3;               // a low, even snow sky
       return c < 0.47 ? 0 : c < 0.58 ? 1 : c < 0.64 ? 3 : 2;
     }
 
@@ -238,9 +299,9 @@
       var amb = ramp([AMB_DAY, AMB_DUSK, AMB_NIGHT], k);
       var gas = clamp((k - 0.35) / 0.4, 0, 1);                 // gas comes up through dusk
       var skyCol = SKYRAMP.map(function (r) { return ramp(r, k); });
-      var moonF = clamp((k - 0.62) / 0.28, 0, 1), moonY = MOON.y + u(5) * (1 - moonF);   // rises a little as it comes out
+      var moonF = SNOW ? 0 : clamp((k - 0.62) / 0.28, 0, 1), moonY = MOON.y + u(5) * (1 - moonF);   // rises a little as it comes out
 
-      for (var p = 0; p < W * H; p++) scratch[p] = sky[p] ? cloudI(p % W, (p / W) | 0, t) : IX[p];
+      for (var p = 0; p < W * H; p++) scratch[p] = sky[p] ? cloudI(p % W, (p / W) | 0, t) : SN[p] || IX[p];
       function dot(x, y, i) { x = Math.round(x); y = Math.round(y); if (x >= 0 && y >= 0 && x < W && y < H) scratch[y * W + x] = i; }
 
       if (stacks.length && Math.random() < 0.6) { var s = stacks[(Math.random() * stacks.length) | 0]; puffs.push({ x: s.x, y: s.y - 1, age: 0, life: 2.5 + Math.random() * 2.5 }); }
@@ -250,24 +311,59 @@
       walkers.forEach(function (w, n) {
         w.y += w.dy * dt;
         w.walked += Math.abs(w.dy) * dt / S;
-        if (w.y < WALKY - u(2) || w.y > H + u(2)) walkers[n] = w = walker();
-        figure(w);
+        if (w.y < WALKY - u(2) || w.y > H + u(2) || !place(w)) walkers[n] = walker();
       });
+      walkers.sort(function (a, b) { return a.y - b.y; });         // nearer people pass in front
+      walkers.forEach(figure);
 
-      // a person seen from a high window: head, coat or dress, legs that alternate
+      // a person as Pissarro paints them from the window: a tall dark stroke with a small
+      // head, a top hat or a bonnet, a frock coat to the knee over two striding legs, or a
+      // dress to the ground; the side toward the sky catches a lighter edge
       function figure(w) {
         var sc = clamp((w.y - VP.y) / (H - VP.y), 0, 1);
-        var h = Math.max(2, Math.round(u(1.6 + 2.6 * sc))), wd = Math.max(1, Math.round(h / 3.2));
-        var x0 = Math.round(w.x), yb = Math.round(w.y), step = (w.walked * 1.4 | 0) & 1;
-        if (h <= 2) { dot(x0, yb, w.coat); dot(x0, yb - 1, w.hat ? 11 : 6); return; }
-        for (var yy = yb - h + 2; yy < yb; yy++) {
-          var flare = w.woman && yy >= yb - 2 ? 1 : 0;              // a skirt widens at the hem
-          for (var xx = -flare; xx < wd + flare; xx++) dot(x0 + xx, yy, w.coat);
+        var h = Math.max(2, Math.round(u(2 + 8.5 * sc))), cx = Math.round(w.x), yb = Math.round(w.y);
+        var step = (w.walked * 1.6 | 0) & 1, edge = w.coat === 11 ? 12 : 6;
+        if (h <= 4) {                                                // far off: a dab with a head
+          for (var q = 1; q < h; q++) dot(cx, yb - q, w.coat);
+          dot(cx, yb - h, w.hat ? 11 : 12); if (step) dot(cx + 1, yb, 11); else dot(cx, yb, 11);
+          return;
         }
-        var hx = x0 + (wd >> 1);
-        dot(hx, yb - h + 1, 6);                                      // head
-        if (w.hat) { dot(hx, yb - h, 11); if (h >= 6) dot(hx, yb - h - 1, 11); }
-        if (wd >= 2) dot(x0 + (step ? 0 : wd - 1), yb, 11); else if (step) dot(x0, yb, 11);
+        var bw = Math.max(2, Math.round(h * 0.3)), x0 = cx - (bw >> 1);
+        var hw = Math.max(1, Math.round(h * 0.15)), hx = cx - (hw >> 1);
+        var headH = Math.max(1, Math.round(h * 0.12)), hatH = w.hat ? Math.max(1, Math.round(h * 0.13)) : 0;
+        var top = yb - h, hem = w.woman ? yb : yb - Math.max(2, Math.round(h * 0.3));
+        var toward = w.dy > 0;                                       // a face only when they come our way
+        // the coat is dabbed, not flat: a hash of the figure and the pixel's place on it
+        // (so the marks travel with them) mixes in the next tone and frays the outline
+        var alt = w.coat === 11 ? 12 : w.coat === 12 ? 11 : 12;
+        function dab(px, py, ry) {
+          var z = Math.imul(w.id ^ (px - cx + 64) * 374761393 ^ ry * 668265263, 1274126177);
+          return ((z ^ (z >>> 13)) >>> 0) % 100;
+        }
+        var yy, xx;
+        for (yy = 0; yy < hatH; yy++) for (xx = -(yy === hatH - 1 && hw > 1 ? 1 : 0); xx < hw + (yy === hatH - 1 && hw > 1 ? 1 : 0); xx++) dot(hx + xx, top + yy, 11);
+        if (w.bonnet) for (xx = -1; xx <= hw; xx++) dot(hx + xx, top + hatH, 9);
+        for (yy = 0; yy < headH; yy++) for (xx = 0; xx < hw; xx++) dot(hx + xx, top + hatH + yy + (w.bonnet ? 1 : 0), toward ? 10 : 12);
+        var y1 = top + hatH + headH + (w.bonnet ? 1 : 0);
+        for (yy = y1; yy < hem; yy++) {
+          var f = (yy - y1) / Math.max(1, hem - y1);
+          var grow = w.woman ? Math.round(f * f * h * 0.08) : (f > 0.6 ? 1 : 0);   // a skirt bells out at the hem
+          var l = x0 - (w.woman ? grow : 0), r = x0 + bw + (w.woman ? grow : grow - 1);
+          if (yy === y1) { l++; r--; }                                  // round the shoulders
+          for (xx = l; xx <= r; xx++) {
+            var d = dab(xx, yy, yy - top), rim = xx === l || xx === r;
+            if (rim && r - l >= 2 && d < 22) continue;                 // a frayed edge
+            dot(xx, yy, xx === l && r - l >= 2 && d < 70 ? edge : d < 18 ? alt : w.coat);
+          }
+        }
+        if (!w.woman) {                                              // the legs scissor as they walk
+          var lx = x0 + (bw >= 4 ? 1 : 0), rx = x0 + bw - 1 - (bw >= 4 ? 1 : 0);
+          for (yy = hem; yy <= yb; yy++) {
+            if (yy < yb || step) dot(lx, yy, 11);
+            if (yy < yb || !step) dot(rx, yy, 11);
+          }
+          if (step) dot(lx - 1, yb, 11); else dot(rx + 1, yb, 11);    // the forward foot
+        }
       }
 
       // lamp posts: a dark iron post with a lantern on top
@@ -305,6 +401,16 @@
         lampsAt.forEach(function (lp) { lampPix.push(lp); });
         var lx = Math.round(x), ly = car.toward ? top + th - 1 : top;
         if (gas > 0) splat(DYN, { x: lx, y: ly + fwd * S, i: 0.5 + 0.6 * sc, r: u(1.5 + 4 * sc), down: car.toward ? 1.6 : 0.8 }, gas);
+      });
+
+      // falling snow: nearer flakes fall faster, sway more and are bigger
+      flakes.forEach(function (f) {
+        f.y += (u(5) + f.z * u(16)) * dt;
+        f.x += (Math.sin(t * 0.8 + f.ph) * u(2.5) * (0.4 + f.z) + u(2)) * dt;
+        if (f.y > H) { f.y = -2; f.x = Math.random() * W; }
+        if (f.x > W) f.x -= W;
+        dot(f.x, f.y, 2);
+        if (f.z > 0.72 && S > 1) { dot(f.x + 1, f.y, 2); dot(f.x, f.y + 1, 2); dot(f.x + 1, f.y + 1, 2); }
       });
 
       // shade: albedo x (ambient + gas), with the gas banded into dithered steps
@@ -353,7 +459,7 @@
       KERB.forEach(function (c) { emit(c[1] * W + c[0], gas, true); });
       POSTS.forEach(function (lp) { emit((lp.y - lp.h - 1) * W + lp.x, gas, true); });
       lampPix.forEach(function (lp) { if (Math.random() < 0.92) emit(lp, gas, true); });
-      stars.forEach(function (s) {
+      if (!SNOW) stars.forEach(function (s) {
         var f = clamp((k - s.at) / 0.05, 0, 1) * (0.55 + 0.45 * Math.sin(t * 1.7 + s.ph)) * 0.7;
         if (f > 0) { var j = s.p * 4, Lc = PAL[2]; F[j] += (Lc[0] - F[j]) * f; F[j + 1] += (Lc[1] - F[j + 1]) * f; F[j + 2] += (Lc[2] - F[j + 2]) * f; }
       });
