@@ -207,12 +207,23 @@
     }
     var walkers = []; for (n = 0; n < 70; n++) walkers.push(walker());
 
-    // ---- snow (?snow): the street under a fresh fall ---------------------------
+    // ---- snow: the street under a fresh fall --------------------------------------
     // Pissarro painted this boulevard in the snow too. Snow settles on what faces up:
     // the roadway (but not the wheel ruts down each lane), the pavements, the roofs,
     // and the tops of ledges, branches and awnings. Dark painted marks (people,
     // carriages, trunks) stay dark, so the crowd reads through the white.
-    var SNOW = /[?&]snow\b/.test(location.search), SN = new Uint8Array(W * H), flakes = [];
+    // It snows on about one visit in five. The roll is made once per visit and kept in
+    // sessionStorage, so the weather holds as you move between pages; ?snow and
+    // ?nosnow force it either way.
+    var SNOW = /[?&]snow\b/.test(location.search);
+    if (!SNOW && !/[?&]nosnow\b/.test(location.search)) {
+      try {
+        var wx = sessionStorage.getItem('px-weather');
+        if (wx !== 'snow' && wx !== 'clear') { wx = Math.random() < 0.2 ? 'snow' : 'clear'; sessionStorage.setItem('px-weather', wx); }
+        SNOW = wx === 'snow';
+      } catch (e) {}
+    }
+    var SN = new Uint8Array(W * H), flakes = [];
     if (SNOW) {
       var DARK = { 6: 1, 9: 1, 11: 1, 12: 1, 15: 1 };
       var hash = function (q, salt) { var z = Math.imul(q ^ salt, 2654435761); z ^= z >>> 15; z = Math.imul(z, 2246822519); return ((z ^ (z >>> 13)) >>> 0) / 4294967296; };
